@@ -218,7 +218,7 @@ class NodeManager(object):
                 self.populate_startup_nodes()
                 self.refresh_table_asap = False
 
-            need_full_slots_coverage = self.cluster_require_full_coverage(nodes_cache)
+            need_full_slots_coverage = True#self.cluster_require_full_coverage(nodes_cache)
 
             # Validate if all slots are covered or if we should try next startup node
             for i in range(0, self.RedisClusterHashSlots):
@@ -257,11 +257,11 @@ class NodeManager(object):
 
         def node_require_full_coverage(node):
             r_node = self.get_redis_link(host=node["host"], port=node["port"], decode_responses=True)
-            return "yes" in r_node.config_get("cluster-require-full-coverage").values()
-
+           # return "yes" in r_node.config_get("cluster-require-full-coverage").values()
+           #return "yes"
         # at least one node should have cluster-require-full-coverage yes
-        return any(node_require_full_coverage(node) for node in nodes.values())
-
+        #return any(node_require_full_coverage(node) for node in nodes.values())
+	return yes
     def set_node_name(self, n):
         """
         Format the name for the given node object
